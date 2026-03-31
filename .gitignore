@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# FastF1 cache (large files — don't commit these)
+data/cache/
+
+# SQLite database (personal data, don't commit)
+data/*.db
+
+# VS Code
+.vscode/
+*.code-workspace
+
+# macOS
+.DS_Store
+
+# Jupyter
+.ipynb_checkpoints/
