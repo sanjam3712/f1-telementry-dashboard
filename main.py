@@ -11,6 +11,7 @@ Usage:
 """
 
 import argparse
+from ai_model import load_model, predict_lap_time
 from utils.fetcher import fetch_session
 from sql.database import init_db, save_session_to_db
 from charts.lap_times import plot_lap_times
@@ -25,6 +26,8 @@ def main():
     parser.add_argument("--session", type=str,   default="Q",     help="Session type: R, Q, FP1, FP2, FP3")
     parser.add_argument("--driver",  type=str,   default="VER",   help="Driver 3-letter code e.g. VER, HAM, LEC")
     args = parser.parse_args()
+
+    model = load_model()
 
     print(f"\n{'='*50}")
     print(f"  F1 Telemetry Dashboard")
@@ -49,7 +52,7 @@ def main():
 
     # 4. Generate charts
     print("[4/4] Generating charts...\n")
-    plot_lap_times(session, args.driver)
+    plot_lap_times(session, args.driver, model)
     plot_tyre_strategy(session)
     plot_speed_trace(session, args.driver)
 

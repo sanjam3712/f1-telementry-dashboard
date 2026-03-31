@@ -8,6 +8,7 @@ Shows how tyre degradation and strategy affect pace.
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import pandas as pd
+from ai_model import predict_lap_time
 
 
 # Official F1 team colours (used for driver lines)
@@ -26,7 +27,7 @@ DRIVER_COLORS = {
 DEFAULT_COLOR = "#AAAAAA"
 
 
-def plot_lap_times(session, driver_code: str = "VER"):
+def plot_lap_times(session, driver_code: str = "VER", model=None):
     """
     Plot lap time evolution for one driver, coloured by tyre compound.
     """
@@ -75,8 +76,18 @@ def plot_lap_times(session, driver_code: str = "VER"):
                color='#FFFFFF', s=120, zorder=5, marker='*',
                label=f"Fastest: {fastest['LapTime_s']:.3f}s")
 
+    predicted_time = None
+    if model is not None:
+        telemetry = fastest.get_telemetry()
+        predicted_time = predict_lap_time(model, telemetry)
+        print(f"AI Predicted Lap Time: {predicted_time:.2f} seconds")
+
     driver_color = DRIVER_COLORS.get(driver_code, DEFAULT_COLOR)
-    ax.set_title(f"{driver_code} — Lap Times  |  {session.event['EventName']} {session.event.year}",
+    title = f"{driver_code} — Lap Times"
+    if predicted_time is not None:
+        title += f" (AI Predicted: {predicted_time:.2f}s)"
+    title += f" | {session.event['EventName']} {session.event.year}"
+    ax.set_title(title,
                  color='white', fontsize=14, pad=12)
     ax.set_xlabel("Lap Number", color='#AAAAAA', fontsize=11)
     ax.set_ylabel("Lap Time (s)", color='#AAAAAA', fontsize=11)
