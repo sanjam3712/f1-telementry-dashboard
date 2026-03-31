@@ -139,13 +139,8 @@ Live race analytics dashboard
 **Sanjam Bedi**
 
 Engineering Student
-AI & Data Projects
+Electronics and Computer Engineering
 Motorsport Analytics Enthusiast
 
 ---
 
-# ⭐ Support
-
-If you like this project, consider **starring the repository on GitHub**!
-
-It helps others discover the project and supports further development.
